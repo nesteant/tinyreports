@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tiny:report xmlns:tiny="http://thelightapps.com/tiny"
+			 xmlns:h="http://www.w3.org/1999/xhtml"
+			 id="report" iterator="iterator" whenBlank=""
+			 h:class="test">
+	<tiny:expressions>
+		<tiny:expression var="">expression</tiny:expression>
+	</tiny:expressions>
+
+	<tiny:rowConfiguration printWhen="asdad"/>
+
+	<tiny:caption name="captionName" displayHeader="true" displayCaption="true" h:class="cont">
+		<tiny:html><![CDATA[Content]]></tiny:html>
+	</tiny:caption>
+
+	<tiny:sort columnId="" valueType="" order="" conversionPattern=""/>
+
+	<tiny:columns>
+		<tiny:column id="id" name="name" hidden="true" onError="" h:class="tag">
+			<tiny:relation columnId="" expression="" filter="" resolverClass=""/>
+			<tiny:value whenBlank="" escapeTags="" tagFilters="" h:class="sdada">
+				<tiny:html><![CDATA[]]></tiny:html>
+			</tiny:value>
+		</tiny:column>
+		<tiny:column id="id" name="name" hidden="true" onError="" h:class="tag">
+			<tiny:relation columnId="" expression="" filter="" resolverClass=""/>
+			<tiny:value whenBlank="" escapeTags="" tagFilters="">
+				<tiny:text>dfsdfsdf</tiny:text>
+			</tiny:value>
+		</tiny:column>
+	</tiny:columns>
+
+	<tiny:aggregations>
+		<tiny:aggregation label="Max VMDK files of VM" position="vmName" columnIds="snapshots"
+						  expression="#{#iterator.get(0).totalfilecountvmdk}" h:class="summary-first-line"/>
+		<tiny:aggregation label="Biggest VMDK file, GB" position="vmName" columnIds="snapshots"
+						  expression="#{#reportConversions.numberConversion(#iterator.get(0).biggestfilesizevmdk, 'GIGA', 'BYTES', false)}"
+						  h:class="summary"/>
+		<tiny:aggregation label="Total Ballooning of VMs, MB" position="vmName" columnIds="snapshots"
+						  expression="#{#reportConversions.numberConversion(#iterator.get(0).vmsmemoryballooned, 'MEGA', 'BYTES', false)}"
+						  h:class="summary"/>
+		<tiny:aggregation label="Total Swapping of VMs, MB" position="vmName" columnIds="snapshots"
+						  expression="#{#reportConversions.numberConversion(#iterator.get(0).vmsmemoryswapped, 'MEGA', 'BYTES', false)}"
+						  h:class="summary"/>
+	</tiny:aggregations>
+	<!--<tiny:aggregations>-->
+		  <!--<tiny:aggregation label="" columnIds="" expression="" format="" function="" position="" h:class="ss">-->
+			  <!--<tiny:aggrItem function="" format="" columnId="" expression="" h:class="ss"/>-->
+		  <!--</tiny:aggregation>-->
+	<!--</tiny:aggregations>-->
+
+</tiny:report>
+

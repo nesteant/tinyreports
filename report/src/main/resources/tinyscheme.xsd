@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Tinyreports
+  ~ Copyright (c) 2013. Anton Nesterenko
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns="http://thelightapps.com/tiny"
+		   targetNamespace="http://thelightapps.com/tiny"
+		   elementFormDefault="qualified">
+
+
+	<xs:annotation>
+		<xs:documentation><![CDATA[
+		Define possible template configurations which can be handled by Tiny Reports Engine.
+			]]></xs:documentation>
+	</xs:annotation>
+
+
+	<xs:element name="chart" type="chartType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Element which defines start of chart configuration. Deprecated
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="report" type="reportType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Element which defines start of report template configuration. Can be used both in layout and xml
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element name="insert" type="insert">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Allows to insert part of html which would be just inserted without any farther steps. Thus it
+			will be resolved in the current context
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:element type="xs:string" name="html">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			This tag should be used in case you need to insert html into your template
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="insert">
+		<xs:sequence>
+			<xs:element name="value" type="insertValue"/>
+		</xs:sequence>
+		<xs:attribute name="ref" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Should point to some object in dataProvider which should be either org.w3c.dom.Node implementation
+			or string which can be transformed to it
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="insertValue">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="skip" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="var" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Variable name which will provide to value expression
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:element name="complex" type="complexBlock">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Element which defines start of complex block. This block is used to wrap some text blocks in
+			one container to define common printing rules. Is applied only to layout of grouping report
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="grouping" type="groupingType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Element which defines start of grouping.block. This element is used to iterate same layout block
+			 over collection and apply sorting to each block. Is applied only to layout of grouping report
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="reportRef" type="reportRefType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Element which defines reference to report template. Is applied only to layout of grouping report
+			]]></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="chartType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="chart-header">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Deprecated section. This block will should contain js script which will be inserted before chart-container. This script
+			will also be wrapped with <script> tag.
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="chart-data">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Deprecated section
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="chart-container">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Deprecated section. This block should contain html container for chart
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Unique id for chart template. It is used to find template in DataProvider
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="name" use="prohibited">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Unique id for chart template. It is used to find template in DataProvider
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="variables">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			List of variables that should be passed from group template to generation
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute/>
+	</xs:complexType>
+	<xs:complexType name="reportType">
+		<xs:sequence>
+			<xs:element type="expressionDefinitionsType" name="expressions" minOccurs="0"/>
+			<xs:element type="rowConfigurationType" name="rowConfiguration" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element type="captionType" name="caption" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="sortColumnType" name="sort" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element type="columnsType" name="columns" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="aggregationsType" name="aggregations" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Unique id for report template. It is used to find template in DataProvider Generated template will have
+			class with the same name
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="iterator">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Name of collection that should be taken from dataProvider in order to start iteration over report.
+			Element of this collection will be passed to the first column as main object and can be referenced
+			from other columns using #iterator variable
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="whenBlank">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated and printed when report is blank.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="printWhen">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated on start of report generation in order to define if report
+			should be generated and printed.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute namespace="##any" processContents="skip">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+	<!-- EXPRESSION WRAPPER -->
+	<xs:complexType name="expressionDefinitionsType">
+		<xs:sequence>
+			<xs:element type="expressionDefinitionType" name="expression" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			This tag holds information about expression. Expression is used to simplify syntax of other expressions.
+			It will be resolved in the context of the place where it was called
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- EXPRESSION DEFINITION -->
+	<xs:complexType name="expressionDefinitionType">
+		<xs:simpleContent>
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated.
+			]]></xs:documentation>
+			</xs:annotation>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="var" use="required">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Value which can be used during column evaluation to call expression. When engine matches the name specified
+			 it will substitute it with the result of expression execution
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- CAPTION ELEMENT DEFINITION -->
+	<xs:complexType name="captionType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="html" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			If specified this block will be used to wrap evaluated data into html. This html should contain
+			  #{#obj.objectCaption} expression in order to insert caption object. It can also contain any other
+			  expression which should return String
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Simple name which will be used as caption if nothing else is specified
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:boolean" name="displayCaption" default="true">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Defines whether to show caption
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:boolean" name="displayHeader" default="true">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Defines whether to show header
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is. These
+			attributes will be assigned to caption tag
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+
+	<!-- SORTING ELEMENT DEFINITION-->
+	<xs:complexType name="sortColumnType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="columnId" use="required">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Defines which column should be used for the sorting
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="printWhen" use="optional">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Defines when this sorting should be applied
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<!--TODO this should be changed every time new support classs added-->
+				<xs:attribute type="xs:string" name="valueType">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Full class name of value which will be sorted. Currently used to support only Calendar sort.
+			 If class is not equal to Calendar.class then sorting will be ignored
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="conversionPattern">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			This attribute is used in combination with valueType and is used to define date pattern used
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="order">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Order which would be used to sort column. Can be either "asc" or "desc". Any other order will be ignored
+			and "asc" will be applied
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- COLUMN WRAPPER DEFINITION -->
+	<xs:complexType name="columnsType">
+		<xs:sequence>
+			<xs:element type="columnType" name="column" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Element which represents report column
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- COLUMN DEFINITION -->
+	<xs:complexType name="columnType">
+		<xs:sequence>
+			<xs:element type="relationType" name="relation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Element which represents relation between this column and its parents
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="valueType" name="value" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Element which contains expressions which will be parsed to the td tag
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Unique id of the column. Used to resolve relations between columns and other useful stuff. Cells under
+			in this column will have class with the same name.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="name" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Name of the column which will be displayed in the header of this column.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:boolean" name="hidden" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			If set to true column will be used in evaluation and sorting but won't be included into the final
+			rendering
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="onError" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be resolved if evaluation of main expression failed
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is. These
+			attributes will be assigned to td and th tags
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+
+	<!-- RELATION DEFINITION -->
+	<xs:complexType name="relationType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="columnId" use="optional">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Id of the column which will be used as iteration source.
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="filter" use="optional">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Expression used to filter values which should be used in iteration for this column. This attribute
+			 is used together with expression attribute. This expression uses
+			  next special variables: #relatedObjects - collection which was resolved as an iteration source
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="expression" use="optional">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Expression which should return List of objects. These objects will be used in current column as iteration
+			columns. In context of this expression "#obj" variable refers either to current columnId object or to
+			  current iterator.
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="onError" use="prohibited">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Deprecated
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute type="xs:string" name="resolverClass" use="optional">
+					<xs:annotation>
+						<xs:documentation><![CDATA[
+			Class which should be used to resolve expressions of this column. This class should extend RelationResolver
+			class
+			]]></xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- VALUE DEFINITION -->
+	<xs:complexType name="valueType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Contains one of two possible expression tags. Any expression in both blocks can operate with next
+			variables:
+			#obj - current object
+			#iterator - current iterator object
+			#cell - current cell object (can be used to set additional styles etc. Using SPEL you can access any
+			parent cell you want, e.g #cell.parentCell.parentCell.objectValue). See XmlCell
+			#row - current row. See XmlRow
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:element type="xs:string" name="text">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			This tag should be used in case you need simple format of the cell.
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:string" name="html">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			This tag should be used in case you need to insert html into your table
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute type="xs:string" name="whenBlank" default="">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated in case cell remains blank
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="escapeTags" default="">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Coma separated list of tags which should be escaped in order to avoid corruption of layout or
+			injections. Should be used only with html layout as in text layout all tags will be
+			escaped automatically
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="tagFilters" default="">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Coma separated list of tags which should be removed in order to avoid corruption of layout or
+			injections. Should be used only with html layout
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is. These
+			attributes will be assigned to td tags
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+
+	<!-- AGGREGATIONS WRAPPER-->
+	<xs:complexType name="aggregationsType">
+		<xs:sequence>
+			<xs:element type="aggregationType" name="aggregation" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Aggregation is a way to display data common to all table. All aggregations will be inserted below
+			main table
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- AGGREGATION DEFINITION -->
+	<xs:complexType name="aggregationType">
+		<xs:sequence>
+			<xs:element type="aggregationItemType" name="aggrItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Deprecated. Simple aggregation item which holds information about one column
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+
+		<xs:attribute type="xs:string" name="label" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Deprecated. Should contain name of aggregation label
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="position" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Deprecated. Should contain columnId where label should be placed
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="columnIds" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Comma separated list of columns which should contain aggregations
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="expression" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Deprecated. Expression which should be evaluated for each columnId
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="function" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Deprecated. Default function which should be executed for each columnId. Can be SUM, CNT, AVG
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="format" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Deprecated. Format which should be applied to each value.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is. These
+			attributes will be assigned to td tags
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+
+	<xs:complexType name="aggregationItemType">
+		<xs:attribute type="xs:string" name="columnId" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			ColumnId name where current aggregation cell will be put.
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="expression" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated for the column
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="function" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Default function which will be evaluated against column. Can be SUM, COUNT, AVERAGE
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="format" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Format which will be applied to value
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Any attribute which is not recognized as meaningful tag will be passed to the final report As Is. These
+			attributes will be assigned to current aggregation
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+
+	<!-- ROW CONFIGURATION DEFINITION -->
+	<xs:complexType name="rowConfigurationType">
+		<xs:attribute type="xs:string" name="printWhen" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which will be evaluated on the row generation start. Should return boolean value. Defines
+			whether to print current row or not
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<!-- HTML CONTENT TYPE-->
+
+
+	<xs:complexType name="complexBlock">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="skip" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="printWhen" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which should return boolean value and defines whether content of complex block should be printed
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+
+	<xs:complexType name="groupingType">
+		<xs:sequence>
+			<xs:element type="sortingType" name="sorting" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Definition of sorting behavior for groups
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="groupElement" name="group" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Element which can have any content. Content of this element will be repeated n times, where n is a size
+			of collection which was defined with collection attribute
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="collection" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which defines collection which will be used to iterate group
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="var" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Each iteration will receive access to current collection variable. It can be referred using hashed name
+			defined in var attribute
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="printWhen" use="optional">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Expression which defines whether to print grouping
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="sortingType">
+		<xs:sequence>
+			<xs:element name="sort" type="sortingElement">
+				<xs:annotation>
+					<xs:documentation><![CDATA[
+			Single sort element
+			]]></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="sortingElement">
+		<xs:attribute name="field" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Defines object field which should be used in sorting
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="order" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Defines order. Can be either asc or desc
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="groupElement">
+		<xs:complexContent>
+			<xs:extension base="xs:all"/>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="reportRefType">
+		<xs:annotation>
+			<xs:documentation><![CDATA[
+			Tag is used to reference external template
+			]]></xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ref" use="required">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Id of report template which should be present in dataProvider
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="caption">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			When specified this caption expression will replace default template value
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="iterator">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			When specified this expression will replace default template iterator value
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="whenBlank">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			When specified this expression will replace default template whenBlank value
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="printWhen">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			When specified this expression will replace default template printWhen value
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="variables">
+			<xs:annotation>
+				<xs:documentation><![CDATA[
+			Comma separated list of variable names which should be passed from layout generation
+			to report generator
+			]]></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

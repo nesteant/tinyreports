@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tiny:report xmlns:tiny="http://thelightapps.com/tiny"
+			 xmlns:h="http://www.w3.org/1999/xhtml"
+			 id="REPORT" iterator="REPORT_ITERATOR"
+			 h:class="test">
+	<tiny:caption name="REPORT"/>
+	<tiny:sort columnId="rid"/>
+	<tiny:columns>
+		<tiny:column id="rid" name="name">
+			<tiny:value>
+				<tiny:text>#{#obj}</tiny:text>
+			</tiny:value>
+		</tiny:column>
+		<tiny:column id="prid" name="name">
+			<tiny:value>
+				<tiny:text>#{#obj}</tiny:text>
+			</tiny:value>
+		</tiny:column>
+	</tiny:columns>
+
+	<tiny:aggregations>
+		<tiny:aggregation h:class="bold">
+			<tiny:aggrItem columnId="datastoreName" expression="Total"/>
+			<tiny:aggrItem columnId="capacity" function="SUM" format="#0.00"/>
+			<tiny:aggrItem columnId="used" function="SUM" format="#0.00"/>
+			<tiny:aggrItem columnId="free" function="SUM" format="#0.00"/>
+			<tiny:aggrItem columnId="vms" function="SUM" format="#"/>
+			<tiny:aggrItem columnId="vmdkFiles" function="SUM" format="#"/>
+		</tiny:aggregation>
+	</tiny:aggregations>
+
+</tiny:report>
+
