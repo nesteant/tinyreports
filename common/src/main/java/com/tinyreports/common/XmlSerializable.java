@@ -16,20 +16,19 @@ import java.io.Writer;
  * @since 0.6
  */
 public interface XmlSerializable<T> {
+    void serialize(T object, Result result) throws TinyReportException;
 
-	void serialize(T object, Result result) throws TinyReportException;
+    void serialize(T object, OutputStream os) throws TinyReportException;
 
-	void serialize(T object, OutputStream os) throws TinyReportException;
+    void serialize(T object, File output) throws TinyReportException;
 
-	void serialize(T object, File output) throws TinyReportException;
+    void serialize(T object, Writer writer) throws TinyReportException;
 
-	void serialize(T object, Writer writer) throws TinyReportException;
+    void serialize(T object, ContentHandler handler) throws TinyReportException;
 
-	void serialize(T object, ContentHandler handler) throws TinyReportException;
+    void serialize(T object, Node node) throws TinyReportException;
 
-	void serialize(T object, Node node) throws TinyReportException;
+    void serialize(T object, XMLStreamWriter writer) throws TinyReportException;
 
-	void serialize(T object, XMLStreamWriter writer) throws TinyReportException;
-
-	void serialize(T object, XMLEventWriter writer) throws TinyReportException;
+    void serialize(T object, XMLEventWriter writer) throws TinyReportException;
 }

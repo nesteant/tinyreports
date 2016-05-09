@@ -12,15 +12,14 @@ import java.util.List;
 @XmlRootElement(name = "sorting")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DetachedSorting {
+    @XmlElement(name = "sort")
+    private List<SortingElement> sorting;
 
-	@XmlElement(name = "sort")
-	private List<SortingElement> sorting;
+    public List<SortingElement> getSorting() {
+        return sorting;
+    }
 
-	public List<SortingElement> getSorting() {
-		return sorting;
-	}
-
-	public void setSorting(List<SortingElement> sorting) {
-		this.sorting = sorting;
-	}
+    public void setSorting(List<SortingElement> sorting) {
+        this.sorting = sorting;
+    }
 }

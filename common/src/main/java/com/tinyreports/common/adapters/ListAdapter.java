@@ -12,23 +12,21 @@ import java.util.List;
  * @since 0.5.3
  */
 public class ListAdapter extends XmlAdapter<String, List<String>> {
-	@Override
-	public List<String> unmarshal(String v) throws Exception {
-		List<String> arrayList = new ArrayList<String>();
-		if (StringUtils.isEmpty(v)) {
-			return arrayList;
-		}
+    @Override
+    public List<String> unmarshal(String v) throws Exception {
+        List<String> arrayList = new ArrayList<String>();
+        if (StringUtils.isEmpty(v)) {
+            return arrayList;
+        }
+        Collections.addAll(arrayList, v.replaceAll("\\s", "").split(","));
+        return arrayList;
+    }
 
-		Collections.addAll(arrayList, v.replaceAll("\\s", "").split(","));
-		return arrayList;
-	}
-
-	@Override
-	public String marshal(List<String> v) throws Exception {
-		if (v == null) {
-			return "";
-		}
-		return StringUtils.join(v.toArray(), ",");
-	}
-
+    @Override
+    public String marshal(List<String> v) throws Exception {
+        if (v == null) {
+            return "";
+        }
+        return StringUtils.join(v.toArray(), ",");
+    }
 }

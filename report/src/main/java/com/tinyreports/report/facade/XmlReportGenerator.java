@@ -14,11 +14,10 @@ import java.util.HashMap;
  * @since 0.6.0
  */
 public final class XmlReportGenerator {
-
-	public static XmlReport generate(DataProvider dataProvider, ReportTemplate reportTemplate) throws TinyReportTemplateException {
-		ReportBuilder reportBuilder = new ReportBuilder(dataProvider, reportTemplate, new HashMap<String, Object>());
-		Object iteratorObject = dataProvider.getDataObjectByKey(reportTemplate.getIteratorId());
-		reportBuilder.generate(ArrayUtils.linearalizeArrayOfObjects(iteratorObject));
-		return reportBuilder.getXmlReport();
-	}
+    public static XmlReport generate(DataProvider dataProvider, ReportTemplate reportTemplate) throws TinyReportTemplateException {
+        ReportBuilder reportBuilder = new ReportBuilder(dataProvider, reportTemplate, new HashMap<String, Object>());
+        Object iteratorObject = dataProvider.getDataObjectByKey(reportTemplate.getIteratorId());
+        reportBuilder.generate(ArrayUtils.linearalizeArrayOfObjects(iteratorObject));
+        return reportBuilder.getXmlReport();
+    }
 }

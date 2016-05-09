@@ -12,28 +12,26 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlRootElement(name = "ij")
 public class InjectBinding implements SerializableBinding {
+    @XmlAttribute(name = "uid")
+    private String uuid;
+    @XmlCDATA
+    @XmlValue
+    private String value;
 
-	@XmlAttribute(name = "uid")
-	private String uuid;
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
 
-	@XmlCDATA
-	@XmlValue
-	private String value;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	@Override
-	public String getUuid() {
-		return uuid;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

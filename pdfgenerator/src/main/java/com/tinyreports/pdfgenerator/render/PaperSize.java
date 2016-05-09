@@ -5,22 +5,20 @@ package com.tinyreports.pdfgenerator.render;
  * @since 0.5.4
  */
 public enum PaperSize {
+    A4V(7.6f, 7.6f), A4H(7.6f, 7.6f);
+    private Float inchWidth;
+    private Float inchHeight;
 
-	A4V(7.6f, 7.6f), A4H(7.6f, 7.6f);
+    private PaperSize(Float inchWidth, Float inchHeight) {
+        this.inchWidth = inchWidth;
+        this.inchHeight = inchHeight;
+    }
 
-	private Float inchWidth;
-	private Float inchHeight;
+    public Float getInchWidth() {
+        return inchWidth;
+    }
 
-	private PaperSize(Float inchWidth, Float inchHeight) {
-		this.inchWidth = inchWidth;
-		this.inchHeight = inchHeight;
-	}
-
-	public Float getInchWidth() {
-		return inchWidth;
-	}
-
-	public Float getInchHeight() {
-		return inchHeight;
-	}
+    public Float getInchHeight() {
+        return inchHeight;
+    }
 }

@@ -24,138 +24,136 @@ import java.net.URL;
  */
 @SuppressWarnings("unchecked")
 public class XmlDeserializer<T> implements XmlDeserializable<T> {
+    private static final String INVALID_FORMAT_TEXT = "Invalid format of input xml node";
+    private Class<T> clazz;
 
-	private static final String INVALID_FORMAT_TEXT = "Invalid format of input xml node";
+    public XmlDeserializer(Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
-	private Class<T> clazz;
+    @Override
+    public T deserialize(File f) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(f);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	public XmlDeserializer(Class<T> clazz) {
-		this.clazz = clazz;
-	}
+    @Override
+    public T deserialize(InputStream is) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(is);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(File f) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(f);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(Reader reader) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(reader);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(InputStream is) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(is);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(URL url) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(url);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(Reader reader) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(reader);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(InputSource source) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(source);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(URL url) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(url);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(Node node) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(node);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(InputSource source) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(source);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public <T> JAXBElement<T> deserialize(Node node, Class<T> declaredType) throws TinyReportException {
+        try {
+            return getUnmarshaller(clazz).unmarshal(node, declaredType);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(Node node) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(node);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(Source source) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(source);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public <T> JAXBElement<T> deserialize(Node node, Class<T> declaredType) throws TinyReportException {
-		try {
-			return getUnmarshaller(clazz).unmarshal(node, declaredType);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public <T> JAXBElement<T> deserialize(Source source, Class<T> declaredType) throws TinyReportException {
+        try {
+            return getUnmarshaller(clazz).unmarshal(source, declaredType);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(Source source) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(source);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(XMLStreamReader reader) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(reader);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public <T> JAXBElement<T> deserialize(Source source, Class<T> declaredType) throws TinyReportException {
-		try {
-			return getUnmarshaller(clazz).unmarshal(source, declaredType);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public <T> JAXBElement<T> deserialize(XMLStreamReader reader, Class<T> declaredType) throws TinyReportException {
+        try {
+            return getUnmarshaller(clazz).unmarshal(reader, declaredType);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(XMLStreamReader reader) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(reader);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public T deserialize(XMLEventReader reader) throws TinyReportException {
+        try {
+            return (T) getUnmarshaller(clazz).unmarshal(reader);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public <T> JAXBElement<T> deserialize(XMLStreamReader reader, Class<T> declaredType) throws TinyReportException {
-		try {
-			return getUnmarshaller(clazz).unmarshal(reader, declaredType);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
+    @Override
+    public <T> JAXBElement<T> deserialize(XMLEventReader reader, Class<T> declaredType) throws TinyReportException {
+        try {
+            return getUnmarshaller(clazz).unmarshal(reader, declaredType);
+        } catch (JAXBException e) {
+            throw new TinyReportException(INVALID_FORMAT_TEXT, e);
+        }
+    }
 
-	@Override
-	public T deserialize(XMLEventReader reader) throws TinyReportException {
-		try {
-			return (T) getUnmarshaller(clazz).unmarshal(reader);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
-
-	@Override
-	public <T> JAXBElement<T> deserialize(XMLEventReader reader, Class<T> declaredType) throws TinyReportException {
-		try {
-			return getUnmarshaller(clazz).unmarshal(reader, declaredType);
-		} catch (JAXBException e) {
-			throw new TinyReportException(INVALID_FORMAT_TEXT, e);
-		}
-	}
-
-	public Unmarshaller getUnmarshaller(Class<T> clazz) throws TinyReportTemplateException {
-		try {
-			JAXBContext ctx = JAXBContext.newInstance(clazz);
-			return ctx.createUnmarshaller();
-		} catch (JAXBException jaxbException) {
-			throw new TinyReportTemplateException(INVALID_FORMAT_TEXT, jaxbException);
-		}
-	}
+    public Unmarshaller getUnmarshaller(Class<T> clazz) throws TinyReportTemplateException {
+        try {
+            JAXBContext ctx = JAXBContext.newInstance(clazz);
+            return ctx.createUnmarshaller();
+        } catch (JAXBException jaxbException) {
+            throw new TinyReportTemplateException(INVALID_FORMAT_TEXT, jaxbException);
+        }
+    }
 }

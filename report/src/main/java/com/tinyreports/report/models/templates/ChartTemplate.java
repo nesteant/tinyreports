@@ -1,21 +1,3 @@
-/*
- * Tinyreports
- * Copyright (c) 2013. Anton Nesterenko
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.tinyreports.report.models.templates;
 
 import com.tinyreports.common.UniqueTemplate;
@@ -36,61 +18,56 @@ import java.util.List;
 //TODO insert variables
 @XmlRootElement(name = "chart")
 public class ChartTemplate implements UniqueTemplate {
+    @XmlAttribute
+    private String id;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(ListAdapter.class)
+    private List<String> variables;
+    @XmlElement(name = "chart-data")
+    private String chartData;
+    @XmlElement(name = "chart-header")
+    private String chartHeader;
+    @XmlElement(name = "chart-container")
+    @XmlCDATA
+    private String chartContainer;
 
-	@XmlAttribute
-	private String id;
+    public String getChartData() {
+        return chartData;
+    }
 
-	@XmlAttribute
-	@XmlJavaTypeAdapter(ListAdapter.class)
-	private List<String> variables;
+    public void setChartData(String chartData) {
+        this.chartData = chartData;
+    }
 
-	@XmlElement(name = "chart-data")
-	private String chartData;
+    public String getChartHeader() {
+        return chartHeader;
+    }
 
-	@XmlElement(name = "chart-header")
-	private String chartHeader;
+    public void setChartHeader(String chartHeader) {
+        this.chartHeader = chartHeader;
+    }
 
-	@XmlElement(name = "chart-container")
-	@XmlCDATA
-	private String chartContainer;
+    public List<String> getVariables() {
+        return variables;
+    }
 
-	public String getChartData() {
-		return chartData;
-	}
+    public void setVariables(List<String> variables) {
+        this.variables = variables;
+    }
 
-	public void setChartData(String chartData) {
-		this.chartData = chartData;
-	}
+    public String getChartContainer() {
+        return chartContainer;
+    }
 
-	public String getChartHeader() {
-		return chartHeader;
-	}
+    public void setChartContainer(String chartContainer) {
+        this.chartContainer = chartContainer;
+    }
 
-	public void setChartHeader(String chartHeader) {
-		this.chartHeader = chartHeader;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public List<String> getVariables() {
-		return variables;
-	}
-
-	public void setVariables(List<String> variables) {
-		this.variables = variables;
-	}
-
-	public String getChartContainer() {
-		return chartContainer;
-	}
-
-	public void setChartContainer(String chartContainer) {
-		this.chartContainer = chartContainer;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 }

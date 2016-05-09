@@ -1,10 +1,6 @@
 package com.tinyreports.report.models.templates;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
@@ -13,55 +9,52 @@ import java.util.List;
  */
 @XmlRootElement(name = "insert")
 public class InsertTemplate {
+    @XmlAttribute
+    private String ref;
+    @XmlList
+    @XmlElement(name = "value")
+    private List<Value> values;
 
-	@XmlAttribute
-	private String ref;
+    public String getRef() {
+        return ref;
+    }
 
-	@XmlList
-	@XmlElement(name = "value")
-	private List<Value> values;
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
 
-	public String getRef() {
-		return ref;
-	}
+    public List<Value> getValues() {
+        return values;
+    }
 
-	public void setRef(String ref) {
-		this.ref = ref;
-	}
+    public void setValues(List<Value> values) {
+        this.values = values;
+    }
 
-	public List<Value> getValues() {
-		return values;
-	}
+    @XmlRootElement(name = "value")
+    public static class Value {
+        @XmlAttribute
+        private String var;
+        @XmlValue
+        private String value;
 
-	public void setValues(List<Value> values) {
-		this.values = values;
-	}
+        public Value() {
+        }
 
-	@XmlRootElement(name = "value")
-	public static class Value {
+        public String getVar() {
+            return var;
+        }
 
-		@XmlAttribute
-		private String var;
-		@XmlValue
-		private String value;
+        public void setVar(String var) {
+            this.var = var;
+        }
 
-		public Value() {
-		}
+        public String getValue() {
+            return value;
+        }
 
-		public String getVar() {
-			return var;
-		}
-
-		public void setVar(String var) {
-			this.var = var;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-	}
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }

@@ -16,38 +16,31 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses />.
   -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>com.tinyreports</groupId>
-		<artifactId>general</artifactId>
-		<version>0.6.6.0-SNAPSHOT</version>
-	</parent>
-
-	<artifactId>tinyreports-report</artifactId>
-	<packaging>jar</packaging>
-
-	<name>Tiny Reports Library</name>
-	<description>Provides generation of reports</description>
-
-	<dependencies>
-		<!-- Inner Dependency-->
-		<dependency>
-			<groupId>com.tinyreports</groupId>
-			<artifactId>tinyreports-common</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.moxy</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-	</dependencies>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tinyreports</groupId>
+        <artifactId>general</artifactId>
+        <version>0.6.6.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>tinyreports-report</artifactId>
+    <packaging>jar</packaging>
+    <name>Tiny Reports Library</name>
+    <description>Provides generation of reports</description>
+    <dependencies>
+        <!-- Inner Dependency-->
+        <dependency>
+            <groupId>com.tinyreports</groupId>
+            <artifactId>tinyreports-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.moxy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+    </dependencies>
 </project>

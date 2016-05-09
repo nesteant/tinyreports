@@ -1,21 +1,3 @@
-/*
- * Tinyreports
- * Copyright (c) 2013. Anton Nesterenko
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.tinyreports.report.models.templates;
 
 import com.tinyreports.common.adapters.ListAdapter;
@@ -31,71 +13,65 @@ import java.util.List;
  */
 @XmlRootElement(name = "reportRef")
 public class ReportRefTemplate extends AdditionalAttributeHolder {
+    @XmlAttribute
+    private String ref;
+    @XmlAttribute
+    private String caption;
+    @XmlAttribute(name = "printWhen")
+    private String printWhenExpression;
+    @XmlAttribute(name = "iterator")
+    private String iterator;
+    @XmlAttribute(name = "whenBlank")
+    private String whenBlankExpression;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(value = ListAdapter.class)
+    private List<String> variables;
 
-	@XmlAttribute
-	private String ref;
+    public String getRef() {
+        return ref;
+    }
 
-	@XmlAttribute
-	private String caption;
+    public void setRef(String ref) {
+        this.ref = ref;
+    }
 
-	@XmlAttribute (name = "printWhen")
-	private String printWhenExpression;
+    public String getCaption() {
+        return caption;
+    }
 
-	@XmlAttribute(name = "iterator")
-	private String iterator;
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
 
-	@XmlAttribute(name = "whenBlank")
-	private String whenBlankExpression;
+    public String getPrintWhenExpression() {
+        return printWhenExpression;
+    }
 
-	@XmlAttribute
-	@XmlJavaTypeAdapter(value = ListAdapter.class)
-	private List<String> variables;
+    public void setPrintWhenExpression(String printWhenExpression) {
+        this.printWhenExpression = printWhenExpression;
+    }
 
-	public String getRef() {
-		return ref;
-	}
+    public String getIterator() {
+        return iterator;
+    }
 
-	public void setRef(String ref) {
-		this.ref = ref;
-	}
+    public void setIterator(String iterator) {
+        this.iterator = iterator;
+    }
 
-	public String getCaption() {
-		return caption;
-	}
+    public String getWhenBlankExpression() {
+        return whenBlankExpression;
+    }
 
-	public void setCaption(String caption) {
-		this.caption = caption;
-	}
+    public void setWhenBlankExpression(String whenBlankExpression) {
+        this.whenBlankExpression = whenBlankExpression;
+    }
 
-	public String getPrintWhenExpression() {
-		return printWhenExpression;
-	}
+    public List<String> getVariables() {
+        return variables;
+    }
 
-	public void setPrintWhenExpression(String printWhenExpression) {
-		this.printWhenExpression = printWhenExpression;
-	}
-
-	public String getIterator() {
-		return iterator;
-	}
-
-	public void setIterator(String iterator) {
-		this.iterator = iterator;
-	}
-
-	public String getWhenBlankExpression() {
-		return whenBlankExpression;
-	}
-
-	public void setWhenBlankExpression(String whenBlankExpression) {
-		this.whenBlankExpression = whenBlankExpression;
-	}
-
-	public List<String> getVariables() {
-		return variables;
-	}
-
-	public void setVariables(List<String> variables) {
-		this.variables = variables;
-	}
+    public void setVariables(List<String> variables) {
+        this.variables = variables;
+    }
 }

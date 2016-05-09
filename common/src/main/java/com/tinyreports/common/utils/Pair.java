@@ -7,7 +7,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author Anton Nesterenko
  * @since 0.5.4
  */
-public class Pair<K,V> {
+public class Pair<K, V> {
     private K key;
     private V value;
 
@@ -23,7 +23,7 @@ public class Pair<K,V> {
         return key;
     }
 
-    public void setKey( K key ) {
+    public void setKey(K key) {
         this.key = key;
     }
 
@@ -31,7 +31,7 @@ public class Pair<K,V> {
         return value;
     }
 
-    public void setValue( V value ) {
+    public void setValue(V value) {
         this.value = value;
     }
 
@@ -41,15 +41,15 @@ public class Pair<K,V> {
     }
 
     @Override
-    public boolean equals( final Object other ) {
+    public boolean equals(final Object other) {
         return EqualsBuilder.reflectionEquals(this, other);
     }
 
-	@Override
-	public String toString() {
-		return new StringBuilder("Pair{")
-				.append("key=").append(key).append(", ")
-				.append("value=").append(value)
-				.append("}").toString();
-	}
+    @Override
+    public String toString() {
+        return new StringBuilder("Pair{")
+                .append("key=").append(key).append(", ")
+                .append("value=").append(value)
+                .append("}").toString();
+    }
 }

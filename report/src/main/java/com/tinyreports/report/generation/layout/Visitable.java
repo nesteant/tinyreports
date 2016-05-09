@@ -8,6 +8,5 @@ import org.w3c.dom.Node;
  * @since 0.6
  */
 public interface Visitable {
-
-	void visit(Node n) throws TinyReportException, InterruptedException;
+    void visit(Node n) throws TinyReportException, InterruptedException;
 }

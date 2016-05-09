@@ -1,39 +1,37 @@
 <html xmlns:tiny="http://thelightapps.com/tiny"
-	  xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Datastore Report</title>
-	<bookmarks>
-		<bookmark name="A" href="#a">
-			<bookmark name="A" href="#a"></bookmark>
-		</bookmark>
-		<bookmark name="A" href="#a"></bookmark>
-	</bookmarks>
-</head>
-<body>
-<div id="wrapper">
-	<tiny:insert ref="TEST">
-		<tiny:value var="testtt">Test Entity1</tiny:value>
-	</tiny:insert>
-
-	<tiny:html><![CDATA[<img src="#" width="200" height="200">]]></tiny:html>
-	<div  class="#{#testtt}">ss</div>
-	<tiny:report id="REPORT" iterator="REPORT_ITERATOR" class="red">
-		<tiny:caption name="REPORT"/>
-		<tiny:sort columnId="rid"/>
-		<tiny:columns>
-			<tiny:column id="rid" name="name">
-				<tiny:value>
-					<tiny:text>#{#obj}</tiny:text>
-				</tiny:value>
-			</tiny:column>
-			<tiny:column id="prid" name="name">
-				<tiny:value>
-					<tiny:text>#{#obj}</tiny:text>
-				</tiny:value>
-			</tiny:column>
-		</tiny:columns>
-	</tiny:report>
-</div>
-
-</body>
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Datastore Report</title>
+        <bookmarks>
+            <bookmark name="A" href="#a">
+                <bookmark name="A" href="#a"></bookmark>
+            </bookmark>
+            <bookmark name="A" href="#a"></bookmark>
+        </bookmarks>
+    </head>
+    <body>
+        <div id="wrapper">
+            <tiny:insert ref="TEST">
+                <tiny:value var="testtt">Test Entity1</tiny:value>
+            </tiny:insert>
+            <tiny:html><![CDATA[<img src="#" width="200" height="200">]]></tiny:html>
+            <div class="#{#testtt}">ss</div>
+            <tiny:report id="REPORT" iterator="REPORT_ITERATOR" class="red">
+                <tiny:caption name="REPORT"/>
+                <tiny:sort columnId="rid"/>
+                <tiny:columns>
+                    <tiny:column id="rid" name="name">
+                        <tiny:value>
+                            <tiny:text>#{#obj}</tiny:text>
+                        </tiny:value>
+                    </tiny:column>
+                    <tiny:column id="prid" name="name">
+                        <tiny:value>
+                            <tiny:text>#{#obj}</tiny:text>
+                        </tiny:value>
+                    </tiny:column>
+                </tiny:columns>
+            </tiny:report>
+        </div>
+    </body>
 </html>

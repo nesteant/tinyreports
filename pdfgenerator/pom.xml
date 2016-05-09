@@ -1,65 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>com.tinyreports</groupId>
-		<artifactId>general</artifactId>
-		<version>0.6.6.0-SNAPSHOT</version>
-	</parent>
-
-	<artifactId>tinyreports-pdfgenerator</artifactId>
-	<packaging>jar</packaging>
-
-	<name>Tiny PDF Generator</name>
-	<description>Provides engine to convert any html to PDF</description>
-
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<appendAssemblyId>true</appendAssemblyId>
-							<descriptors>
-								<descriptor>src/main/assembly/all.xml</descriptor>
-								<descriptor>src/main/assembly/all-64.xml</descriptor>
-								<descriptor>src/main/assembly/linux-32.xml</descriptor>
-								<descriptor>src/main/assembly/linux-64.xml</descriptor>
-								<descriptor>src/main/assembly/windows.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>flying-saucer-pdf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>flying-saucer-core</artifactId>
-		</dependency>
-
-		<!-- Inner Dependency-->
-		<dependency>
-			<groupId>com.tinyreports</groupId>
-			<artifactId>tinyreports-common</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-	</dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tinyreports</groupId>
+        <artifactId>general</artifactId>
+        <version>0.6.6.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>tinyreports-pdfgenerator</artifactId>
+    <packaging>jar</packaging>
+    <name>Tiny PDF Generator</name>
+    <description>Provides engine to convert any html to PDF</description>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>true</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/main/assembly/all.xml</descriptor>
+                                <descriptor>src/main/assembly/all-64.xml</descriptor>
+                                <descriptor>src/main/assembly/linux-32.xml</descriptor>
+                                <descriptor>src/main/assembly/linux-64.xml</descriptor>
+                                <descriptor>src/main/assembly/windows.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-core</artifactId>
+        </dependency>
+        <!-- Inner Dependency-->
+        <dependency>
+            <groupId>com.tinyreports</groupId>
+            <artifactId>tinyreports-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+    </dependencies>
 </project>

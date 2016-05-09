@@ -5,6 +5,5 @@ package com.tinyreports.common;
  * @since 0.5.3
  */
 public interface UniqueTemplate {
-
-	public String getId();
+    public String getId();
 }

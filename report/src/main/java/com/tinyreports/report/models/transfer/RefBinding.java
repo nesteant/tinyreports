@@ -9,16 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "ref")
 public class RefBinding implements SerializableBinding {
+    @XmlAttribute
+    private String uuid;
 
-	@XmlAttribute
-	private String uuid;
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
 
-	@Override
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

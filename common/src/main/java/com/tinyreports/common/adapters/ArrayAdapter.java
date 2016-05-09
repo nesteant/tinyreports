@@ -9,17 +9,16 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since 0.5.3
  */
 public class ArrayAdapter extends XmlAdapter<String, String[]> {
+    @Override
+    public String[] unmarshal(String v) throws Exception {
+        if (StringUtils.isEmpty(v)) {
+            return null;
+        }
+        return v.replaceAll("\\s", "").split(",");
+    }
 
-	@Override
-	public String[] unmarshal(String v) throws Exception {
-		if (StringUtils.isEmpty(v)) {
-			return null;
-		}
-		return  v.replaceAll("\\s","").split(",");
-	}
-
-	@Override
-	public String marshal(String[] v) throws Exception {
-		return StringUtils.join(v);
-	}
+    @Override
+    public String marshal(String[] v) throws Exception {
+        return StringUtils.join(v);
+    }
 }

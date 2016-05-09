@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since 0.5.3
  */
 public class EscapeAdapter extends XmlAdapter<String, String> {
-	@Override
-	public String unmarshal(String v) throws Exception {
-		return  StringEscapeUtils.unescapeXml(v);
-	}
+    @Override
+    public String unmarshal(String v) throws Exception {
+        return StringEscapeUtils.unescapeXml(v);
+    }
 
-	@Override
-	public String marshal(String v) throws Exception {
-		return StringEscapeUtils.escapeXml(v);
-	}
+    @Override
+    public String marshal(String v) throws Exception {
+        return StringEscapeUtils.escapeXml(v);
+    }
 }

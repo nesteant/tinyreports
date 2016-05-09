@@ -15,37 +15,31 @@ import java.util.concurrent.Callable;
  * @since 0.6
  */
 public class InjectNodeVisitor extends LayoutVisitor implements Visitable {
+    protected InjectNodeVisitor(BuildInfo buildInfo) {
+        super(buildInfo);
+    }
 
-	protected InjectNodeVisitor(BuildInfo buildInfo) {
-		super(buildInfo);
-	}
-
-	@Override
-	public void visit(Node n) throws TinyReportException, InterruptedException {
-
-		RefBinding refBinding = new RefBinding();
-
-		String text = n.getTextContent();
-		if (StringUtils.isEmpty(text)) {
-			text = StringUtils.EMPTY;
-		}
-		final InjectBinding binding = new InjectBinding();
-
-		binding.setValue(evaluateLayoutExpression(text.trim(), String.class));
-		String uuid = UUID.randomUUID().toString();
-		binding.setUuid(uuid);
-		refBinding.setUuid(uuid);
-
-		Node ref = toNode(layout, refBinding);
-		Node parent = n.getParentNode();
-		parent.replaceChild(ref, n);
-
-		//TODO define correct way to pass this type of node directly to grouping report
-		executorServiceHandler.submitToReportPool(new Callable<SerializableBinding>() {
-			@Override
-			public SerializableBinding call() throws Exception {
-				return binding;
-			}
-		});
-	}
+    @Override
+    public void visit(Node n) throws TinyReportException, InterruptedException {
+        RefBinding refBinding = new RefBinding();
+        String text = n.getTextContent();
+        if (StringUtils.isEmpty(text)) {
+            text = StringUtils.EMPTY;
+        }
+        final InjectBinding binding = new InjectBinding();
+        binding.setValue(evaluateLayoutExpression(text.trim(), String.class));
+        String uuid = UUID.randomUUID().toString();
+        binding.setUuid(uuid);
+        refBinding.setUuid(uuid);
+        Node ref = toNode(layout, refBinding);
+        Node parent = n.getParentNode();
+        parent.replaceChild(ref, n);
+        //TODO define correct way to pass this type of node directly to grouping report
+        executorServiceHandler.submitToReportPool(new Callable<SerializableBinding>() {
+            @Override
+            public SerializableBinding call() throws Exception {
+                return binding;
+            }
+        });
+    }
 }

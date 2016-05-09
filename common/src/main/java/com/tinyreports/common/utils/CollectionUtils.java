@@ -7,12 +7,11 @@ import java.util.Collection;
  * @since 0.6
  */
 public class CollectionUtils {
+    public static boolean isNotEmpty(Collection collection) {
+        return collection != null && collection.size() > 0;
+    }
 
-	public static boolean isNotEmpty(Collection collection) {
-		return collection != null && collection.size() > 0;
-	}
-
-	public static boolean isEmpty(Collection collection) {
-		return !isNotEmpty(collection);
-	}
+    public static boolean isEmpty(Collection collection) {
+        return !isNotEmpty(collection);
+    }
 }

@@ -13,15 +13,15 @@ import java.io.Writer;
  * @since 0.6.0
  */
 public final class XmlReportRenderer {
+    public static void render(XmlReport xmlReport, OutputStream os) throws TinyReportException {
+        new ReportRenderer(xmlReport).render(os);
+    }
 
-	public static void render(XmlReport xmlReport, OutputStream os) throws TinyReportException {
-		new ReportRenderer(xmlReport).render(os);
-	}
-	public static void render(XmlReport xmlReport, Writer wr) throws TinyReportException {
-		new ReportRenderer(xmlReport).render(wr);
-	}
+    public static void render(XmlReport xmlReport, Writer wr) throws TinyReportException {
+        new ReportRenderer(xmlReport).render(wr);
+    }
 
-	public static CsvReport csvRender(XmlReport xmlReport) throws TinyReportException {
-		return new ReportRenderer(xmlReport).render(CsvReport.class);
-	}
+    public static CsvReport csvRender(XmlReport xmlReport) throws TinyReportException {
+        return new ReportRenderer(xmlReport).render(CsvReport.class);
+    }
 }

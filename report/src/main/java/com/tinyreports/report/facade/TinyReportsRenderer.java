@@ -15,32 +15,30 @@ import java.io.Writer;
  * @since 0.6.0
  */
 public final class TinyReportsRenderer {
+    public static GroupingCsvReport csvRender(GroupingReport groupingReport) throws TinyReportException {
+        return new GroupingReportRenderer(groupingReport).csvRender();
+    }
 
-	public static GroupingCsvReport csvRender(GroupingReport groupingReport) throws TinyReportException {
-		return new GroupingReportRenderer(groupingReport).csvRender();
-	}
+    public static String render(GroupingReport groupingReport) throws TinyReportException {
+        return new GroupingReportRenderer(groupingReport).render();
+    }
 
-	public static String render(GroupingReport groupingReport) throws TinyReportException {
-		return new GroupingReportRenderer(groupingReport).render();
-	}
+    //TODO define normal handling
+    public static void render(GroupingReport groupingReport, OutputStream os) throws TinyReportException {
+        try {
+            IOUtils.write(render(groupingReport), os);
+        } catch (IOException e) {
+            throw new TinyReportException("", e);
+        }
+    }
 
-	//TODO define normal handling
-	public static void render(GroupingReport groupingReport, OutputStream os) throws TinyReportException {
-		try {
-			IOUtils.write(render(groupingReport), os);
-		} catch (IOException e) {
-			throw new TinyReportException("", e);
-		}
-	}
-
-	//TODO define normal handling
-	public static void render(GroupingReport groupingReport, Writer wr) throws TinyReportException {
-		try {
-			IOUtils.write(render(groupingReport), wr);
-		} catch (IOException e) {
-			throw new TinyReportException("", e);
-		}
-	}
-
+    //TODO define normal handling
+    public static void render(GroupingReport groupingReport, Writer wr) throws TinyReportException {
+        try {
+            IOUtils.write(render(groupingReport), wr);
+        } catch (IOException e) {
+            throw new TinyReportException("", e);
+        }
+    }
 
 }

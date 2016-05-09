@@ -5,6 +5,5 @@ package com.tinyreports.pdfgenerator.render;
  * @since 0.5.4
  */
 public enum OsType {
-
-	WIN, LINUX32, LINUX64, MACOS
+    WIN, LINUX32, LINUX64, MACOS
 }
